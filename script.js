@@ -11,3 +11,20 @@ async function carregarMaterias (){
     document.getElementById('lista-materias=is').innerHTML = ´<p class="status" style="color:red;"> ${e.message}</p>´;
   }
 }
+
+function renderizarLista(materiais) {
+  const lista = document.getElementById('lista-materiais');
+  if (!materiais.length) {
+    lista.innerHTML = '<p class="status">Nenhum material cadastrado ainda.</p>';
+    return;
+  }
+  lista.innerHTML = materiais.map(item => ´
+     <div class="card">
+            <h3>${item.produto || item.nome || 'Sem nome'}</h3>
+            <p>Quantidade: <span>${item.quantidadeEstoque ?? item.quantidade ?? 0}</span></p>
+            <p>Cadastrado em: <span>${item.dataEntrada || '—'}</span></p>
+        </div>
+    ´).join('')
+}
+
+
