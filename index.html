@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang=pt-br'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Page Title</title>
+    <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+    <header>
+        <h1> Sistema de Esteoque - Enfermagem</h1>
+        <p>SENAC  Zona Norte | responsàvel: <strong>Enfermeira Camila</strong></p>
+    </header>
+
+    <section>
+        <h2> Cadastrar novo material</h2>
+        <form id="form-cadastro">
+            <div class="form-grid">
+                <div> 
+                    <label for="input-nome"Nome do Material></label>
+                    <input type="text" id="input-nome" placeholder="EX: Luvas de procedimentos" required>
+                </div>
+                <div>
+                    <label for="input-quantidade">Quantidade</label>
+                    <input type="number" id="input-quantidade" min="0"  placeholder="EX: 100" required> 
+                </div>
+            </div>
+            <button type="submit" id="btn-cadastrar">Cadastrar Material</button>
+        </form>
+    </section>
+</body>
+</html>
