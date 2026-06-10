@@ -27,4 +27,31 @@ function renderizarLista(materiais) {
     ´).join('')
 }
 
+document.getElementById('form-cadastro').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const novoItem = {
+        produto: document.getElementById('input-nome').value,
+        quantidadeEstoque: Number(document.getElementById('input-quantidade').value),
+        dataEntrada: new Date().toISOString().split('T')[0]
+    };
+    
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(novoItem)
+        });
+        if (!res.ok) throw new Error('Erro ao cadastrar.');
+        
+        alert('✅ Material cadastrado com sucesso!');
+        this.reset();
+        carregarMateriais();
+    } catch (err) {
+        alert('⚠️ Falha: ' + err.message);
+    }
+});
+
+carregarMateriais();
+
 
