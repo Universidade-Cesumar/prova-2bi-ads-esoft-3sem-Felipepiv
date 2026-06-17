@@ -120,9 +120,11 @@ button[type="submit"]:hover {
     margin-right: 5px;
 }
 
-.btn-excluir {
+.btn-excluir:hover {
     background: #d68910;
 }
+
+
 
 
 /* Responsividade */
