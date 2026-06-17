@@ -120,6 +120,11 @@ button[type="submit"]:hover {
     margin-right: 5px;
 }
 
+.btn-excluir {
+    background: #d68910;
+}
+
+
 /* Responsividade */
 @media (max-width: 600px) {
     .form-grid { 
