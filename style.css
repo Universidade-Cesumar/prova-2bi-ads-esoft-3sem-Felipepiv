@@ -120,8 +120,12 @@ button[type="submit"]:hover {
     margin-right: 5px;
 }
 
-.btn-excluir:hover {
+.btn-baixar:hover {
     background: #d68910;
+}
+
+.btn-excluir:hover {
+    background: #c0392b;
 }
 
 
