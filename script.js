@@ -1,4 +1,4 @@
-conts API_URL = 'https://6a1f56a9b79eec0d6cf0a932.mockapi.io/api/v1/users'
+const API_URL = 'https://6a1f56a9b79eec0d6cf0a932.mockapi.io/api/v1/users'
 
 // carregar a lista ao abrir a página do sistema
 
