@@ -180,6 +180,43 @@ async function baixarEstoque(id, estoqueAtual, botao) {
     }
 }
 
+async function excluirMaterial(id) {
+
+    const confirmar = confirm(
+        'Deseja realmente excluir este material?'
+    );
+
+    if (!confirmar) return;
+
+    try {
+
+        const res = await fetch(`${API_URL}/${id}`, {
+
+            method: 'DELETE'
+
+        });
+
+        if (!res.ok) {
+
+            throw new Error(
+                'Erro ao excluir material.'
+            );
+
+        }
+
+        alert(
+            '🗑️ Material excluído com sucesso!'
+        );
+
+        carregarMateriais();
+
+    } catch (erro) {
+
+        alert('⚠️ ' + erro.message);
+
+    }
+}
+
 
 
 carregarMateriais();
