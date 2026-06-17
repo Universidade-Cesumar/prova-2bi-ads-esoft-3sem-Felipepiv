@@ -59,11 +59,7 @@ function renderizarLista(materiais) {
                 Cadastrado em:
                 <span>${item.dataEntrada || '—'}</span>
             </p>
-
-            <!-- ==================================== -->
-            <!-- ADICIONADO SPRINT 2 -->
-            <!-- ==================================== -->
-
+            
             <input
                 type="number"
                 id="input-retirada"
@@ -115,6 +111,76 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
         alert('⚠️ Falha: ' + err.message);
     }
 });
+
+async function baixarEstoque(id, estoqueAtual, botao) {
+
+    const card = botao.closest('.card');
+
+    const quantidadeRetirada = Number(
+        card.querySelector('#input-retirada').value
+    );
+
+    if (
+        !validarRetirada(
+            estoqueAtual,
+            quantidadeRetirada
+        )
+    ) {
+
+        alert(
+            'Quantidade inválida. Não é permitido retirar valores negativos ou maiores que o estoque.'
+        );
+
+        return;
+    }
+
+    const novoEstoque =
+        estoqueAtual - quantidadeRetirada;
+
+    try {
+
+        const res = await fetch(`${API_URL}/${id}`, {
+
+            method: 'PUT',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+
+                quantidadeEstoque: novoEstoque,
+
+                // ADICIONADO
+                quantidadeSaida: quantidadeRetirada,
+
+                // ADICIONADO
+                dataSaida: new Date()
+                    .toISOString()
+                    .split('T')[0]
+
+            })
+
+        });
+
+        if (!res.ok) {
+            throw new Error(
+                'Erro ao atualizar estoque.'
+            );
+        }
+
+        alert('✅ Baixa realizada com sucesso!');
+
+        carregarMateriais();
+
+    } catch (erro) {
+
+        alert('⚠️ ' + erro.message);
+
+    }
+}
+
+
 
 carregarMateriais();
 
