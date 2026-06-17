@@ -110,6 +110,16 @@ button[type="submit"]:hover {
     grid-column: 1/-1; 
 }
 
+.btn-baixar {
+    background: #f39c12;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
 /* Responsividade */
 @media (max-width: 600px) {
     .form-grid { 
