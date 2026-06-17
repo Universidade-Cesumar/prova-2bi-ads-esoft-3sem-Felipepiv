@@ -33,18 +33,62 @@ function validarRetirada(estoqueAtual, quantidadeRetirada) {
 }
 
 function renderizarLista(materiais) {
-  const lista = document.getElementById('lista-materiais');
-  if (!materiais.length) {
-    lista.innerHTML = '<p class="status">Nenhum material cadastrado ainda.</p>';
-    return;
-  }
-  lista.innerHTML = materiais.map(item => ´
-     <div class="card">
+
+    const lista = document.getElementById('lista-materiais');
+
+    if (!materiais.length) {
+
+        lista.innerHTML =
+            '<p class="status">Nenhum material cadastrado ainda.</p>';
+
+        return;
+    }
+
+    lista.innerHTML = materiais.map(item => `
+
+        <div class="card">
+
             <h3>${item.produto || item.nome || 'Sem nome'}</h3>
-            <p>Quantidade: <span>${item.quantidadeEstoque ?? item.quantidade ?? 0}</span></p>
-            <p>Cadastrado em: <span>${item.dataEntrada || '—'}</span></p>
+
+            <p>
+                Quantidade:
+                <span>${item.quantidadeEstoque ?? item.quantidade ?? 0}</span>
+            </p>
+
+            <p>
+                Cadastrado em:
+                <span>${item.dataEntrada || '—'}</span>
+            </p>
+
+            <!-- ==================================== -->
+            <!-- ADICIONADO SPRINT 2 -->
+            <!-- ==================================== -->
+
+            <input
+                type="number"
+                id="input-retirada"
+                min="1"
+                placeholder="Quantidade para retirar">
+
+            <br><br>
+
+            <button
+                class="btn-baixar"
+                onclick="baixarEstoque('${item.id}', ${item.quantidadeEstoque}, this)">
+                Retirar
+            </button>
+
+            <button
+                class="btn-excluir"
+                onclick="excluirMaterial('${item.id}')">
+                Excluir
+            </button>
+
+            <!-- FIM SPRINT 2 -->
+
         </div>
-    ´).join('')
+
+    `).join('');
 }
 
 document.getElementById('form-cadastro').addEventListener('submit', async function(e) {
