@@ -124,6 +124,14 @@ button[type="submit"]:hover {
     background: #d68910;
 }
 
+.btn-excluir {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .btn-excluir:hover {
     background: #c0392b;
 }
