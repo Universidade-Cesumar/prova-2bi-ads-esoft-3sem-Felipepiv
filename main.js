@@ -11,9 +11,10 @@ async function carregarMateriais() {
 
         if (!res.ok) throw new Error('Erro ao buscar dados.');
 
-        const materiais = await res.json();
+        todosMateriais = await res.json();
 
         renderizarLista(materiais);
+        atualizarDashboard(todosMateriais);
 
     } catch (e) {
 
