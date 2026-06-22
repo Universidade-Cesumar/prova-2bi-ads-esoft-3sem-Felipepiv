@@ -51,6 +51,28 @@ dashboard {
     flex: 1;
 }
 
+dashboard-card.critico-card {
+    background: #fff3cd;
+}
+.dashboard-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+#total-itens,
+#total-criticos {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0056b3;
+}
+#total-criticos {
+    color: #c0392b;
+}
+
 .form-grid { 
     display: grid; 
     grid-template-columns: 1fr 1fr; 
