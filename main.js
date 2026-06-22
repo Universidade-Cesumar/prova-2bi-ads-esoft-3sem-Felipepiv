@@ -30,6 +30,14 @@ function atualizarDashboard(materiais) {
     document.getElementById('tital-criticos').textContent = criticos;
 }
 
+function filtrarMateriais(termo) {
+    const termoLower = termo.toLowerCase();
+    const filtrados = todosMateriais.filter(item => {
+        const nome = (item.produto || item.nome || '').toLowerCase();
+        return nome.includes(termoLower)
+    });
+    renderizarLista(filtrados);
+}
 
 function validarRetirada(estoqueAtual, quantidadeRetirada) {
 
