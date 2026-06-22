@@ -1,5 +1,8 @@
 const API_URL = 'https://6a1f56a9b79eec0d6cf0a932.mockapi.io/api/v1/users'
 
+// Guarda todos os materiais para filtro local
+let todosMAteriais = [];
+
 // carregar a lista ao abrir a página do sistema
 
 async function carregarMateriais() {
@@ -18,6 +21,15 @@ async function carregarMateriais() {
             `<p class="status" style="color:red;">⚠️ ${e.message}</p>`;
     }
 }
+
+function atualizarDashboard(materiais) {
+    const total = materiais.length;
+    const criticos = materiais.filter(item => (item.qunatidadeEstoque ?? item.quantidade ?? 0) < 10).length;
+
+    document.getElemenById('total-itens').textContent = total;
+    document.getElementById('tital-criticos').textContent = criticos;
+}
+
 
 function validarRetirada(estoqueAtual, quantidadeRetirada) {
 
