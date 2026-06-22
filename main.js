@@ -64,47 +64,49 @@ function renderizarLista(materiais) {
         return;
     }
 
-    lista.innerHTML = materiais.map(item => `
-
-        <div class="card">
-
+    lista.innerHTML = materiais.map(item => {
+        const quantidade = item.quantidadeEstoque ?? item.quantidade ?? 0;
+ 
+        const classeCritico = quantidade < 10 ? 'estoque-critico' : '';
+ 
+        return `
+        <div class="card ${classeCritico}">
             <h3>${item.produto || item.nome || 'Sem nome'}</h3>
-
+ 
             <p>
                 Quantidade:
-                <span>${item.quantidadeEstoque ?? item.quantidade ?? 0}</span>
+                <span>${quantidade}</span>
+                ${quantidade < 10 ? '<span class="badge-critico">⚠️ Estoque baixo</span>' : ''}
             </p>
-
+ 
             <p>
                 Cadastrado em:
                 <span>${item.dataEntrada || '—'}</span>
             </p>
-            
+ 
             <input
                 type="number"
                 id="input-retirada"
+                class="input-retirada-card"
                 min="1"
                 placeholder="Quantidade para retirar">
-
+ 
             <br><br>
-
+ 
             <button
                 class="btn-baixar"
-                onclick="baixarEstoque('${item.id}', ${item.quantidadeEstoque}, this)">
+                onclick="baixarEstoque('${item.id}', ${quantidade}, this)">
                 Retirar
             </button>
-
+ 
             <button
                 class="btn-excluir"
                 onclick="excluirMaterial('${item.id}')">
                 Excluir
             </button>
-
-            <!-- FIM SPRINT 2 -->
-
         </div>
-
-    `).join('');
+        `;
+    }).join('');
 }
 
 document.getElementById('form-cadastro').addEventListener('submit', async function(e) {
