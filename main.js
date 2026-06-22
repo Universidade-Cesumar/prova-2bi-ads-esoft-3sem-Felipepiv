@@ -1,7 +1,7 @@
 const API_URL = 'https://6a1f56a9b79eec0d6cf0a932.mockapi.io/api/v1/users'
 
 // Guarda todos os materiais para filtro local
-let todosMAteriais = [];
+let todosMateriais = [];
 
 // carregar a lista ao abrir a página do sistema
 
@@ -13,7 +13,7 @@ async function carregarMateriais() {
 
         todosMateriais = await res.json();
 
-        renderizarLista(materiais);
+        renderizarLista(todosMateriais);
         atualizarDashboard(todosMateriais);
 
     } catch (e) {
