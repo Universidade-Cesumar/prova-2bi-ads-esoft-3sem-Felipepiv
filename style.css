@@ -73,6 +73,22 @@ dashboard-card.critico-card {
     color: #c0392b;
 }
 
+.busca-container {
+    margin-top: 4px;
+}
+#input-busca {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+#input-busca:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
 .form-grid { 
     display: grid; 
     grid-template-columns: 1fr 1fr; 
