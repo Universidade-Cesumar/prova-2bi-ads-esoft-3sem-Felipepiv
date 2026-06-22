@@ -11,7 +11,29 @@
         <h1> Sistema de Esteoque - Enfermagem</h1>
         <p>SENAC  Zona Norte | responsàvel: <strong>Enfermeira Camila</strong></p>
     </header>
-
+    
+     <section>
+        <h2>Dashboard</h2>
+        <div class="dashboard">
+            <div class="dashboard-card">
+                <span class="dashboard-label">Total de Itens</span>
+                <span id="total-itens">0</span>
+            </div>
+            <div class="dashboard-card critico-card">
+                <span class="dashboard-label">Estoque Crítico (&lt;10)</span>
+                <span id="total-criticos">0</span>
+            </div>
+        </div>
+ 
+        <div class="busca-container">
+            <input
+                type="text"
+                id="input-busca"
+                placeholder="🔍 Pesquisar material..."
+                oninput="filtrarMateriais(this.value)">
+        </div>
+    </section>
+    
     <section>
         <h2> Cadastrar novo material</h2>
         <form id="form-cadastro">
