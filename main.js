@@ -25,10 +25,10 @@ async function carregarMateriais() {
 
 function atualizarDashboard(materiais) {
     const total = materiais.length;
-    const criticos = materiais.filter(item => (item.qunatidadeEstoque ?? item.quantidade ?? 0) < 10).length;
+    const criticos = materiais.filter(item => (item.quantidadeEstoque ?? item.quantidade ?? 0) < 10).length;
 
-    document.getElemenById('total-itens').textContent = total;
-    document.getElementById('tital-criticos').textContent = criticos;
+    document.getElementById('total-itens').textContent = total;
+    document.getElementById('total-criticos').textContent = criticos;
 }
 
 function filtrarMateriais(termo) {
