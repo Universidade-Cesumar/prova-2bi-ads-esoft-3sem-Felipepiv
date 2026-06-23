@@ -4,7 +4,6 @@ const API_URL = 'https://6a1f56a9b79eec0d6cf0a932.mockapi.io/api/v1/users'
 let todosMateriais = [];
 
 // carregar a lista ao abrir a página do sistema
-
 async function carregarMateriais() {
     try {
         const res = await fetch(API_URL);
@@ -17,7 +16,6 @@ async function carregarMateriais() {
         atualizarDashboard(todosMateriais);
 
     } catch (e) {
-
         document.getElementById('lista-materiais').innerHTML =
             `<p class="status" style="color:red;">⚠️ ${e.message}</p>`;
     }
@@ -41,7 +39,6 @@ function filtrarMateriais(termo) {
 }
 
 function validarRetirada(estoqueAtual, quantidadeRetirada) {
-
     if (quantidadeRetirada <= 0) {
         return false;
     }
@@ -54,14 +51,11 @@ function validarRetirada(estoqueAtual, quantidadeRetirada) {
 }
 
 function renderizarLista(materiais) {
-
     const lista = document.getElementById('lista-materiais');
 
     if (!materiais.length) {
-
         lista.innerHTML =
             '<p class="status">Nenhum material cadastrado ainda.</p>';
-
         return;
     }
 
@@ -87,8 +81,7 @@ function renderizarLista(materiais) {
  
             <input
                 type="number"
-                id="input-retirada"
-                class="input-retirada-card"
+                class="input-retirada-card input-retirada-valor"
                 min="1"
                 placeholder="Quantidade para retirar">
  
@@ -136,112 +129,70 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
 });
 
 async function baixarEstoque(id, estoqueAtual, botao) {
-
     const card = botao.closest('.card');
 
+    // Corrigido: buscando pela classe para não pegar o input do card errado
     const quantidadeRetirada = Number(
-        card.querySelector('#input-retirada').value
+        card.querySelector('.input-retirada-valor').value
     );
 
-    if (
-        !validarRetirada(
-            estoqueAtual,
-            quantidadeRetirada
-        )
-    ) {
-
-        alert(
-            'Quantidade inválida. Não é permitido retirar valores negativos ou maiores que o estoque.'
-        );
-
+    if (!validarRetirada(estoqueAtual, quantidadeRetirada)) {
+        alert('Quantidade inválida. Não é permitido retirar valores negativos ou maiores que o estoque.');
         return;
     }
 
-    const novoEstoque =
-        estoqueAtual - quantidadeRetirada;
+    const novoEstoque = estoqueAtual - quantidadeRetirada;
 
     try {
+        // Buscando o item atual para não apagar o nome/produto original no PUT
+        const itemAtual = todosMateriais.find(item => item.id === id) || {};
 
         const res = await fetch(`${API_URL}/${id}`, {
-
             method: 'PUT',
-
             headers: {
                 'Content-Type': 'application/json'
             },
-
             body: JSON.stringify({
-
+                ...itemAtual, // Mantém os dados antigos (nome, produto, etc)
                 quantidadeEstoque: novoEstoque,
-
-                // ADICIONADO
                 quantidadeSaida: quantidadeRetirada,
-
-                // ADICIONADO
-                dataSaida: new Date()
-                    .toISOString()
-                    .split('T')[0]
-
+                dataSaida: new Date().toISOString().split('T')[0]
             })
-
         });
 
         if (!res.ok) {
-            throw new Error(
-                'Erro ao atualizar estoque.'
-            );
+            throw new Error('Erro ao atualizar estoque.');
         }
 
         alert('✅ Baixa realizada com sucesso!');
-
         carregarMateriais();
 
     } catch (erro) {
-
         alert('⚠️ ' + erro.message);
-
     }
 }
 
 async function excluirMaterial(id) {
-
-    const confirmar = confirm(
-        'Deseja realmente excluir este material?'
-    );
+    const confirmar = confirm('Deseja realmente excluir este material?');
 
     if (!confirmar) return;
 
     try {
-
         const res = await fetch(`${API_URL}/${id}`, {
-
             method: 'DELETE'
-
         });
 
         if (!res.ok) {
-
-            throw new Error(
-                'Erro ao excluir material.'
-            );
-
+            throw new Error('Erro ao excluir material.');
         }
 
-        alert(
-            '🗑️ Material excluído com sucesso!'
-        );
-
+        alert('🗑️ Material excluído com sucesso!');
         carregarMateriais();
 
     } catch (erro) {
-
         alert('⚠️ ' + erro.message);
-
     }
 }
 
-
-
+// Inicializa o sistema
 carregarMateriais();
-
-
